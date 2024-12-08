@@ -47,5 +47,17 @@ describe('StringCalculator Component', () => {
     fireEvent.click(calculateButton);
 
     expect(screen.getByText('Result: 5')).toBeInTheDocument();
+  });
+
+  test("calculates sum of multiple numbers correctly", () => {
+    render(<StringCalculator />);
+
+    const input = screen.getByPlaceholderText('Enter numbers (e.g., 1,2,3)');
+    const calculateButton = screen.getByText('Calculate');
+
+    fireEvent.change(input, { target: { value: '1,2,3,4,5' } });
+    fireEvent.click(calculateButton);
+
+    expect(screen.getByText('Result: 15')).toBeInTheDocument();
   })
 });
