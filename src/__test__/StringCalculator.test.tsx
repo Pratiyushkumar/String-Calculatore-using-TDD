@@ -59,5 +59,27 @@ describe('StringCalculator Component', () => {
     fireEvent.click(calculateButton);
 
     expect(screen.getByText('Result: 15')).toBeInTheDocument();
-  })
+  });
+
+  test("should handle new lines between numbers", () => {
+    render(<StringCalculator />);
+
+    const input = screen.getByPlaceholderText('Enter numbers (e.g., 1,2,3)');
+    const calculateButton = screen.getByText('Calculate');
+
+    fireEvent.change(input, { target: { value: '1\n2,3' } });
+    fireEvent.click(calculateButton);
+
+    expect(screen.getByText('Result: 6')).toBeInTheDocument();
+
+    fireEvent.change(input, { target: { value: '1,2\n3' } });
+    fireEvent.click(calculateButton);
+
+    expect(screen.getByText('Result: 6')).toBeInTheDocument();
+
+    fireEvent.change(input, { target: { value: '1\n2,3\n4,7' } });
+    fireEvent.click(calculateButton);
+
+    expect(screen.getByText('Result: 17')).toBeInTheDocument();
+  });
 });

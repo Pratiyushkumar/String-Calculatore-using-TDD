@@ -7,6 +7,7 @@ const StringCalculator = () => {
 
   const handleCalculate = () => {
     const sum = add(input);
+    console.log('sum calculation', sum);
     setResult(sum);
   };
 
@@ -14,7 +15,7 @@ const StringCalculator = () => {
     <div className='max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md'>
       <h2 className='text-2xl font-bold mb-4'>String Calculator</h2>
 
-      <input
+      <textarea
         type='text'
         placeholder='Enter numbers (e.g., 1,2,3)'
         className='w-full p-2 border rounded mb-4'

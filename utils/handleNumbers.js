@@ -1,11 +1,15 @@
 export function add(numbers) {
-  // Handle empty string
-  if (numbers === '') {
-    return 0;
-  }
-  // Handle comma-separated numbers
-  const numberArray = numbers.split(',').map((num) => parseInt(num.trim(), 10));
+  if (numbers === '') return 0;
 
-  // Sum the numbers
-  return numberArray.reduce((sum, current) => sum + current, 0);
+  const cleanedNumbers = numbers.replace(/[\n,]+/g, ',');
+
+  const numberArray = cleanedNumbers.split(',').map((num) => {
+    const parsed = parseInt(num.trim(), 10);
+    return isNaN(parsed) ? 0 : parsed;
+  });
+
+  return numberArray.reduce(
+    (sum, current) => sum + (isNaN(current) ? 0 : current),
+    0
+  );
 }
