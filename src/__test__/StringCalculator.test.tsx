@@ -82,4 +82,15 @@ describe('StringCalculator Component', () => {
 
     expect(screen.getByText('Result: 17')).toBeInTheDocument();
   });
+
+  test('should handle error for negative numbers', () => {
+    render(<StringCalculator />);
+    const input = screen.getByPlaceholderText('Enter numbers (e.g., 1,2,3)');
+    const calculateButton = screen.getByText('Calculate');
+
+    // Test single negative number
+    fireEvent.change(input, { target: { value: '-1,2,3' } });
+    fireEvent.click(calculateButton);
+    expect(screen.getByText(/negative numbers not allowed/i)).toBeInTheDocument();
+  });
 });

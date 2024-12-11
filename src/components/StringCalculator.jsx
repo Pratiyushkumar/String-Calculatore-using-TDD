@@ -4,11 +4,17 @@ import { add } from '../../utils/handleNumbers';
 const StringCalculator = () => {
   const [input, setInput] = useState('');
   const [result, setResult] = useState(null);
+  const [error, setError] = useState(null);
 
   const handleCalculate = () => {
-    const sum = add(input);
-    console.log('sum calculation', sum);
-    setResult(sum);
+    try {
+      setError(null);
+      const sum = add(input);
+      setResult(sum);
+    } catch (err) {
+      setError(err.message);
+      setResult(null);
+    }
   };
 
   return (
@@ -30,9 +36,15 @@ const StringCalculator = () => {
         Calculate
       </button>
 
-      <div className='mt-4 p-2 bg-green-100 text-green-800 rounded'>
-        Result: {result}
-      </div>
+      {error && (
+        <div className='mt-4 p-2 bg-red-100 text-red-800 rounded'>{error}</div>
+      )}
+
+      {result !== null && (
+        <div className='mt-4 p-2 bg-green-100 text-green-800 rounded'>
+          Result: {result}
+        </div>
+      )}
     </div>
   );
 };

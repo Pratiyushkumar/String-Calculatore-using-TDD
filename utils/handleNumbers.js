@@ -8,6 +8,11 @@ export function add(numbers) {
     return isNaN(parsed) ? 0 : parsed;
   });
 
+  const negatives = numberArray.filter((num) => num < 0);
+  if (negatives.length > 0) {
+    throw new Error(`negative numbers not allowed ${negatives.join(',')}`);
+  }
+
   return numberArray.reduce(
     (sum, current) => sum + (isNaN(current) ? 0 : current),
     0
